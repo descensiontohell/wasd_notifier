@@ -1,0 +1,26 @@
+version: "3.3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: wasd_bot
+    environment:
+      BOT_TOKEN: ""
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    volumes:
+      - wasd_data:/var/lib/postgresql/data
+    container_name: wasd_new_db
+    environment:
+      POSTGRES_DB:
+      POSTGRES_USER:
+      POSTGRES_PASSWORD:
+    ports:
+      - 6060:5432
+
+volumes:
+  wasd_data:
