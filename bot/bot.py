@@ -1,11 +1,11 @@
 from vkbottle import Bot
 
-from .api import api
+from bot_token import BOT_TOKEN
 from .blueprints import bps
 
 
 def setup_bot():
-    bot = Bot(api=api)
+    bot = Bot(BOT_TOKEN)
     for bp in bps:
         bp.load(bot)
 

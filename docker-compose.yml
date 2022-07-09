@@ -3,24 +3,32 @@ services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Botfile
     container_name: wasd_bot
     environment:
-      BOT_TOKEN: ""
+      BOT_TOKEN: vk1.a._5H6_pPiUs5f2Wc9peofwaocCPtO6LCZwuIrgCwL3fm0Vdm83PRpNc2L9EUvGkII1ofLSgEQFbqtYGqqNQh7ZXNA2lUw_Dw9tmG6XMevAkUmIP6FE4Rz3xmQPfc_5uJTrr9i-mxZRr48KxThlGRhA75XKm-7vy-H6-wp1CPehiceOhHxMf_MwnAAGRZVcLqn
     depends_on:
+      - db
+
+  poller:
+    build:
+      context: .
+      dockerfile: Pollerfile
+    container_name: wasd_poller
+    environment:
+      API_TOKEN: vk1.a._5H6_pPiUs5f2Wc9peofwaocCPtO6LCZwuIrgCwL3fm0Vdm83PRpNc2L9EUvGkII1ofLSgEQFbqtYGqqNQh7ZXNA2lUw_Dw9tmG6XMevAkUmIP6FE4Rz3xmQPfc_5uJTrr9i-mxZRr48KxThlGRhA75XKm-7vy-H6-wp1CPehiceOhHxMf_MwnAAGRZVcLqn
+    depends_on:
+      - app
       - db
 
   db:
     image: postgres:latest
     volumes:
-      - wasd_data:/var/lib/postgresql/data
+      - ./wasd_data:/var/lib/postgresql/data
     container_name: wasd_new_db
     environment:
-      POSTGRES_DB:
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
+      POSTGRES_DB: wasd
+      POSTGRES_USER: elle_wasd
+      POSTGRES_PASSWORD: wasd_password
     ports:
       - 6060:5432
-
-volumes:
-  wasd_data:

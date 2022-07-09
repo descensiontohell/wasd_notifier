@@ -4,7 +4,7 @@ from asyncio import Task
 from random import randint
 from typing import Optional
 
-from bot.api import api
+from .api import api
 from bot.const import Responses
 from bot.controllers import wasd, subs
 
@@ -16,16 +16,8 @@ class WasdPoller:
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger("Poller")
 
-    async def start(self):
-        self.is_running = True
-        self.poll_task = asyncio.create_task(self.poll())
-
-    async def stop(self):
-        self.is_running = False
-        await self.poll_task
-
     async def poll(self):
-        while self.is_running:
+        while True:
             list_of_channel_names = await wasd.get_all_channels_names()
 
             for channel_name in list_of_channel_names:
