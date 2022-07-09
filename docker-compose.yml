@@ -9,6 +9,7 @@ services:
       BOT_TOKEN: ${TOKEN}
     depends_on:
       - db
+    restart: always
 
   poller:
     build:
@@ -20,6 +21,7 @@ services:
     depends_on:
       - app
       - db
+    restart: always
 
   db:
     image: postgres:latest
@@ -32,3 +34,4 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - 6060:5432
+    restart: always
