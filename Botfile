@@ -7,4 +7,5 @@ WORKDIR /wasd
 
 COPY . .
 ENV IS_IN_DOCKER Yes
+RUN chmod +x entrypoint.sh
 ENTRYPOINT ["/wasd/entrypoint.sh"]
